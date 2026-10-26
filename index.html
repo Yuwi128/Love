@@ -1,74 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Will you be my date? 💕</title>
-  <link rel="icon" href="favicon.ico" sizes="48x48">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
-  <link rel="icon" type="image/png" href="favicon.png?v=2">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffc2d6">
+<title>Will you be my date? 💕</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Sparkle particles (drawn by script.js) -->
-  <canvas id="sparks" aria-hidden="true"></canvas>
+<canvas id="sparks" aria-hidden="true"></canvas>
+<div id="garden" aria-hidden="true"></div>
 
-  <!-- Floating flowers (filled by script.js) -->
-  <div id="garden" aria-hidden="true"></div>
+<section id="s1" class="on">
+  <div class="emoji">🥺</div>
+  <h1>Will you be my date? 💕</h1>
+  <p>I’d really like to take you out.</p>
+  <div class="row">
+    <button id="yes" type="button">Yes 💖</button>
+    <button id="no" type="button">No</button>
+  </div>
+</section>
 
-  <!-- Step 1: the question -->
-  <section id="s1" class="on">
-    <div class="emoji">🥺</div>
-    <h1>Will you be my date? 💕</h1>
-    <p>I’d really like to take you out.</p>
-    <div class="row">
-      <button id="yes" type="button">Yes 💖</button>
-      <button id="no" type="button">No</button>
+<section id="s2">
+  <div class="card">
+    <h2>Yay, you said yes! 🎉</h2>
+    <p>What’s on your mind?</p>
+    <label>What kind of date?</label>
+    <div class="chips" id="chips"></div>
+    <p id="err1" class="errmsg"></p>
+    <button class="go" id="next" type="button">Next: pick a day and time ➡️</button>
+  </div>
+</section>
+
+<section id="s2b">
+  <div class="card">
+    <h2>When should we go? 🗓️</h2>
+    <p>Choose the day and time that works for you.</p>
+    <label>Day and time</label>
+    <div class="three">
+      <select id="mo" aria-label="Month"></select>
+      <select id="dy" aria-label="Day"></select>
+      <select id="yr" aria-label="Year"></select>
     </div>
-  </section>
+    <input type="time" id="t" aria-label="Time" class="time">
+    <label for="n">Anything else I should know? (optional)</label>
+    <textarea id="n" rows="2" placeholder="Favorite food, a place you want to try…"></textarea>
+    <p id="err" class="errmsg"></p>
+    <button class="go" id="send" type="button">Confirm our date 💌</button>
+    <button class="go alt" id="back" type="button">⬅️ Back to choices</button>
+  </div>
+</section>
 
-  <!-- Step 2: pick one kind of date -->
-  <section id="s2">
-    <div class="card">
-      <h2>Yay, you said yes! 🎉</h2>
-      <p>What’s on your mind?</p>
-      <label>What kind of date?</label>
-      <div class="chips" id="chips"></div>
-      <p id="err1" class="errmsg"></p>
-      <button class="go" id="next" type="button">Next: pick a day and time ➡️</button>
-    </div>
-  </section>
+<section id="s3">
+  <div class="card done">
+    <div class="emoji">💖</div>
+    <h2>See you soon 💖!</h2>
+  </div>
+</section>
 
-  <!-- Step 3: day, time, note -->
-  <section id="s2b">
-    <div class="card">
-      <h2>When should we go? 🗓️</h2>
-      <p>Choose the day and time that works for you.</p>
-      <label>Day and time</label>
-      <div class="three">
-        <select id="mo" aria-label="Month"></select>
-        <select id="dy" aria-label="Day"></select>
-        <select id="yr" aria-label="Year"></select>
-      </div>
-      <input type="time" id="t" aria-label="Time" class="time">
-      <label for="n">Anything else I should know? (optional)</label>
-      <textarea id="n" rows="2" placeholder="Favorite food, a place you want to try…"></textarea>
-      <p id="err" class="errmsg"></p>
-      <button class="go" id="send" type="button">Confirm our date 💌</button>
-      <button class="go alt" id="back" type="button">⬅️ Back to choices</button>
-    </div>
-  </section>
-
-  <!-- Step 4: done -->
-  <section id="s3">
-    <div class="card done">
-      <div class="emoji">💖</div>
-      <h2>See you soon 💖!</h2>
-    </div>
-  </section>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
