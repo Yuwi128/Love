@@ -272,6 +272,20 @@ function setupChoices() {
   };
 }
 
+/* ========== INPUT LIMIT ========== */
+const NOTE_MAX = 150;
+// max 3 of the same character in a row ("qqqqq" -> "qqq"), then hard length cap
+const cleanNote = s => s.replace(/(.)\1{3,}/gu, "$1$1$1").slice(0, NOTE_MAX);
+
+function setupNoteLimit() {
+  const n = $("n"), c = $("count");
+  n.addEventListener("input", () => {
+    const v = cleanNote(n.value);
+    if (v !== n.value) n.value = v;
+    c.textContent = v.length + "/" + NOTE_MAX;
+  });
+}
+
 /* ========== STEP 3 ========== */
 function setupDateAndTime() {
   const mo = $("mo"), dy = $("dy"), yr = $("yr");
@@ -301,13 +315,23 @@ function setupDateAndTime() {
     const when = new Date(+yr.value, +mo.value, +dy.value, hour, minute);
     if (when < new Date()) return fail("Please pick a day and time that haven’t passed yet 📅");
     $("err").textContent = "";
+
+    const whenText = when.toLocaleString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" });
+    const noteText = cleanNote($("n").value.trim()) || "(none)";
+
+    // thank-you screen details
+    $("ty-kind").textContent = "Date: " + answers.kind;
+    $("ty-when").textContent = "When: " + whenText;
+    $("ty-note").textContent = noteText === "(none)" ? "" : "Your note: " + noteText;
+
     show("s3");
     [0, 450, 900, 1500].forEach(ms => setTimeout(() =>
       celebrate(rand(innerWidth * .25, innerWidth * .75), rand(innerHeight * .25, innerHeight * .6), 22, 40), ms));
+
     sendEmail({
       "Date idea": answers.kind,
-      "Day and time": when.toLocaleString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }),
-      "Her note": $("n").value.trim() || "(none)"
+      "Day and time": whenText,
+      "Her note": noteText
     });
   };
 }
@@ -316,16 +340,23 @@ function setupDateAndTime() {
 async function sendEmail(details) {
   if (!WEB3FORMS_KEY) return;
   const message = "I said YES! 💖\n" + Object.entries(details).map(([k, v]) => k + ": " + v).join("\n");
+  const answerName = "YES 💖 " + details["Date idea"] + " • " + details["Day and time"];
   try {
     await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: "Your date answer 💖", from_name: "Be My Date page", ...details, message })
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: "Their answer: " + details["Date idea"] + " – " + details["Day and time"],
+        from_name: answerName,
+        ...details,
+        message
+      })
     });
   } catch (err) { console.error("Email did not send:", err); }
 }
 
 /* ========== START ========== */
 trackPointer(); growGarden(); startSparks(); createGlow();
-setupQuestion(); setupChoices(); setupDateAndTime();
+setupQuestion(); setupChoices(); setupDateAndTime(); setupNoteLimit();
 requestAnimationFrame(loop);
