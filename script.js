@@ -305,6 +305,19 @@ function setupDateAndTime() {
   fillDays();
   dy.value = today.getDate();
 
+  // time choices: only :00 and :30  (change the hours here if you want)
+  const START_HOUR = 8, END_HOUR = 23;
+  const tSel = $("t");
+  tSel.add(new Option("Choose a time ⏰", ""));
+  for (let h = START_HOUR; h <= END_HOUR; h++) {
+    for (const m of [0, 30]) {
+      const value = String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+      const h12 = h % 12 || 12;
+      const label = h12 + ":" + String(m).padStart(2, "0") + " " + (h < 12 ? "AM" : "PM");
+      tSel.add(new Option(label, value));
+    }
+  }
+
   $("back").onclick = () => show("s2");
   const fail = t => { $("err").textContent = t; };
 
