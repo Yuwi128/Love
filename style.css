@@ -116,6 +116,14 @@ textarea{resize:vertical}
 .alt{background:var(--chip);color:var(--ink);border:2px solid var(--line);margin-top:10px}
 .errmsg{color:var(--accent);font-weight:600;min-height:20px;margin:10px 0 0}
 
+/* thank-you summary */
+.summary{
+  margin-top:14px;padding:14px;border-radius:16px;
+  background:var(--chip);border:2px solid var(--line);
+}
+.summary p{margin:6px 0;color:var(--ink);font-weight:600;word-break:break-word}
+.summary p:empty{display:none}
+
 @media (max-width:360px){.three{grid-template-columns:1fr 1fr}.three #mo{grid-column:1/-1}}
 @media (max-height:520px) and (orientation:landscape){section{align-items:flex-start}.emoji{font-size:40px}}
 @media (prefers-reduced-motion:reduce){
