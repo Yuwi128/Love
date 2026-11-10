@@ -286,6 +286,13 @@ function setupNoteLimit() {
   });
 }
 
+/* ========== EMAIL CHECK ========== */
+// only real, common email providers are accepted (add more domains here if you need)
+const ALLOWED_EMAIL_DOMAINS = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "live.com", "icloud.com", "proton.me", "protonmail.com"];
+const emailOk = e =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e) &&
+  ALLOWED_EMAIL_DOMAINS.includes(e.split("@")[1].toLowerCase());
+
 /* ========== STEP 3 ========== */
 function setupDateAndTime() {
   const mo = $("mo"), dy = $("dy"), yr = $("yr");
@@ -324,8 +331,8 @@ function setupDateAndTime() {
   $("send").onclick = () => {
     const time = $("t").value;
     if (!time) return fail("Please choose a time ⏰");
-    const email = $("em").value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail("Please enter your email so I know it’s you 📧");
+    const email = $("em").value.trim().toLowerCase();
+    if (!emailOk(email)) return fail("Please use your real Gmail, Yahoo, Outlook or iCloud address 📧");
     const [hour, minute] = time.split(":").map(Number);
     const when = new Date(+yr.value, +mo.value, +dy.value, hour, minute);
     if (when < new Date()) return fail("Please pick a day and time that haven’t passed yet 📅");
