@@ -240,7 +240,8 @@ function setupQuestion() {
     no.style.left = Math.max(8, rand(0, innerWidth - no.offsetWidth - 16)) + "px";
     no.style.top = Math.max(8, rand(0, innerHeight - no.offsetHeight - 16)) + "px";
   }
-  ["pointerenter","pointerdown","touchstart","click","focus"].forEach(t => no.addEventListener(t, dodge, { passive: false }));
+  // moves only after she clicks/taps "No" (no hover, no touch-start, no focus dodging)
+  no.addEventListener("click", dodge);
   yes.addEventListener("click", () => {
     const r = yes.getBoundingClientRect();
     celebrate(Math.min(Math.max(r.left + r.width / 2, 0), innerWidth), Math.min(Math.max(r.top + r.height / 2, 0), innerHeight), 30, 50);
