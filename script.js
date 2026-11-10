@@ -320,9 +320,9 @@ function setupDateAndTime() {
     const noteText = cleanNote($("n").value.trim()) || "(none)";
 
     // thank-you screen details
-    $("ty-kind").textContent = "Date: " + answers.kind;
-    $("ty-when").textContent = "When: " + whenText;
-    $("ty-note").textContent = noteText === "(none)" ? "" : "Your note: " + noteText;
+    $("ty-kind").textContent = "🎟️ " + answers.kind;
+    $("ty-when").textContent = "🗓️ " + whenText;
+    $("ty-note").textContent = noteText === "(none)" ? "" : "💌 " + noteText;
 
     show("s3");
     [0, 450, 900, 1500].forEach(ms => setTimeout(() =>
