@@ -311,6 +311,8 @@ function setupDateAndTime() {
   $("send").onclick = () => {
     const time = $("t").value;
     if (!time) return fail("Please choose a time ⏰");
+    const email = $("em").value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail("Please enter your email so I know it’s you 📧");
     const [hour, minute] = time.split(":").map(Number);
     const when = new Date(+yr.value, +mo.value, +dy.value, hour, minute);
     if (when < new Date()) return fail("Please pick a day and time that haven’t passed yet 📅");
@@ -331,6 +333,7 @@ function setupDateAndTime() {
     sendEmail({
       "Date idea": answers.kind,
       "Day and time": whenText,
+      "Email": email,
       "Her note": noteText
     });
   };
@@ -339,16 +342,17 @@ function setupDateAndTime() {
 /* ========== EMAIL (Web3Forms) ========== */
 async function sendEmail(details) {
   if (!WEB3FORMS_KEY) return;
-  const message = "I said YES! 💖\n" + Object.entries(details).map(([k, v]) => k + ": " + v).join("\n");
-  const answerName = "YES 💖 " + details["Date idea"] + " • " + details["Day and time"];
+  const message = "From: " + details["Email"] + "\nI said YES! 💖\n" + Object.entries(details).map(([k, v]) => k + ": " + v).join("\n");
+  const answerName = details["Email"] + " said YES 💖 " + details["Date idea"];
   try {
     await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         access_key: WEB3FORMS_KEY,
-        subject: "Their answer: " + details["Date idea"] + " – " + details["Day and time"],
+        subject: "YES 💖 from " + details["Email"] + " – " + details["Date idea"] + " – " + details["Day and time"],
         from_name: answerName,
+        email: details["Email"],   // Web3Forms uses this as the reply-to address
         ...details,
         message
       })
