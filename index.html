@@ -45,8 +45,8 @@
     </div>
     <input type="time" id="t" aria-label="Time" class="time">
     <label for="n">Anything else I should know? (optional)</label>
-    <textarea id="n" rows="2" maxlength="150" placeholder="Favorite food, a place you want to try…"></textarea>
-    <small id="count" style="display:block;text-align:right;color:var(--muted)">0/150</small>
+    <textarea id="n" rows="2" maxlength="60" placeholder="Favorite food, a place you want to try…"></textarea>
+    <small id="count" style="display:block;text-align:right;color:var(--muted)">0/60</small>
     <p id="err" class="errmsg"></p>
     <button class="go" id="send" type="button">Confirm our date 💌</button>
     <button class="go alt" id="back" type="button">⬅️ Back to choices</button>
@@ -57,9 +57,12 @@
   <div class="card done">
     <div class="emoji">💖</div>
     <h2>See you soon 💖!</h2>
-    <p id="ty-kind"></p>
-    <p id="ty-when"></p>
-    <p id="ty-note"></p>
+    <p>Our date is set 🥰</p>
+    <div class="summary">
+      <p id="ty-kind"></p>
+      <p id="ty-when"></p>
+      <p id="ty-note"></p>
+    </div>
   </div>
 </section>
 
