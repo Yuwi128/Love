@@ -273,7 +273,7 @@ function setupChoices() {
 }
 
 /* ========== INPUT LIMIT ========== */
-const NOTE_MAX = 150;
+const NOTE_MAX = 60;
 // max 3 of the same character in a row ("qqqqq" -> "qqq"), then hard length cap
 const cleanNote = s => s.replace(/(.)\1{3,}/gu, "$1$1$1").slice(0, NOTE_MAX);
 
