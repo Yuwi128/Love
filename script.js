@@ -2,7 +2,9 @@
 /* ========== SETTINGS ========== */
 const WEB3FORMS_KEY = "aeb8d03f-99ae-4e9a-b321-ee0b92fae1fa";
 const DATE_KINDS = ["🎬 Movies","🧺 Picnic","☕ Coffee","🍝 Dinner","🌳 Walk in the park","🎮 Arcade"];
-const YEARS = [2026, 2027];
+// years update by themselves: this year and next year
+const THIS_YEAR = new Date().getFullYear();
+const YEARS = [THIS_YEAR, THIS_YEAR + 1];
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const NO_LINES = ["No","Are you sure? 🥺","Really?","Think again 💭","Pretty please? 🥹","Last chance… 😢","Just press Yes 😘"];
 const FLOWERS = ["🌸","🌷","🌹","🌼","🌺","🌻","💮","💐","💐","🦋","🦋"];
